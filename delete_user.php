@@ -1,14 +1,15 @@
 <?php
-require 'db_connection.php';
+require 'conn.php';
+
 if(isset($_GET['id']) && is_numeric($_GET['id'])){
     
-    $userid = $_GET['id'];
-    $delete_user = mysqli_query($conn,"DELETE FROM `users` WHERE id='$userid'");
+    $id = $_GET['id'];
+    $delete_user = mysqli_query($conn,"DELETE FROM `users` WHERE id='$id'");
     
     if($delete_user){
         echo "<script>
-        alert('Data Deleted');
-        window.location.href = 'index.php';
+        alert('User has been deleted');
+        window.location.href = 'user_page.php';
         </script>";
         exit;
     }else{

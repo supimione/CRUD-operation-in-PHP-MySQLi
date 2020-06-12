@@ -1,24 +1,23 @@
 <?php
-require 'db_connection.php';
+require 'conn.php';
 // function for getting data from database
 function get_all_data($conn){
     $get_data = mysqli_query($conn,"SELECT * FROM `users`");
     if(mysqli_num_rows($get_data) > 0){
         echo '<table>
               <tr>
-                <th>Username</th>
+                <th>name</th>
                 <th>Email</th> 
-                <th>Action</th> 
+                <th>Edit</th> 
+                <th>Delete</th> 
               </tr>';
         while($row = mysqli_fetch_assoc($get_data)){
            
             echo '<tr>
-            <td>'.$row['username'].'</td>
-            <td>'.$row['user_email'].'</td>
-            <td>
-            <a href="update.php?id='.$row['id'].'">Edit</a>&nbsp;|
-            <a href="delete.php?id='.$row['id'].'">Delete</a>
-            </td>
+            <td>'.$row['name'].'</td>
+            <td>'.$row['email'].'</td>
+            <td><a href="edit_user.php?id='.$row['id'].'">Edit</a>&nbsp;</td>
+            <td><a href="delete_user.php?id='.$row['id'].'">Delete</a></td>
             </tr>';
 
         }
@@ -40,22 +39,10 @@ function get_all_data($conn){
 
 <body>
     <div class="container">
-      
-       <!-- INSERT DATA -->
-        <div class="form">
-            <h2>Insert Data</h2>
-            <form action="insert.php" method="post">
-                <strong>Username</strong><br>
-                <input type="text" name="username" placeholder="Enter your full name" required><br>
-                <strong>Email</strong><br>
-                <input type="email" name="email" placeholder="Enter your email" required><br>
-                <input type="submit" value="Insert">
-            </form>
-        </div>
-        <!-- END OF INSERT DATA SECTION -->
-        <hr>
+
         <!-- SHOW DATA -->
-        <h2>Show Data</h2>
+        <h2>Display Table All Data</h2>
+        <?php include 'menu.php';?>
         <?php 
         // calling get_all_data function
         get_all_data($conn); 
